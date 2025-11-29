@@ -1,0 +1,29 @@
+name: Simple Website CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Verify files exist
+        run: |
+          set -euo pipefail
+          test -f index.html
+          test -f styles.css
+          test -f script.js
+
+      - name: Basic HTML checks
+        run: |
+          set -euo pipefail
+          echo "Checking title and basic tags in index.html..."
+          grep -q "<title>My Demo Site</title>" index.html
+          grep -q "<h1>Welcome to My Demo Site</h1>" index.html
+          grep -q "script.js" index.html
+          echo "HTML looks good"
