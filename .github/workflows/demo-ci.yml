@@ -1,29 +1,60 @@
-name: Simple Website CI
-
+name: CI and Deploy to GitHub Pages
 on:
-  push:
-  pull_request:
-
+ push:
+ branches: [ "main" ]
+ workflow_dispatch:
+# Grant the workflow permissions it needs to publish to Pages
+permissions:
+ contents: read
+ pages: write
+ id-token: write
+# Prevent multiple deployments from overlapping
+concurrency:
+ group: "pages"
+ cancel-in-progress: true
 jobs:
-  build-and-test:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-
-      - name: Verify files exist
-        run: |
-          set -euo pipefail
-          test -f index.html
-          test -f styles.css
-          test -f script.js
-
-      - name: Basic HTML checks
-        run: |
-          set -euo pipefail
-          echo "Checking title and basic tags in index.html..."
-          grep -q "<title>My Demo Site</title>" index.html
-          grep -q "<h1>Welcome to My Demo Site</h1>" index.html
-          grep -q "script.js" index.html
-          echo "HTML looks good"
+ build:
+ name: Build and Test Static Site
+ runs-on: ubuntu-latest
+ steps:
+ # 1. Check out repository
+ - name: Check out repository
+ uses: actions/checkout@v4
+ # 2. Basic checks for required files
+ - name: Verify files exist
+ run: |
+ set -euo pipefail
+ test -f index.html
+ test -f styles.css
+ test -f script.js
+ echo "All required files found."
+ # 3. Basic HTML checks (similar to earlier CI example)
+ - name: Basic HTML checks
+ run: |
+ set -euo pipefail
+ echo "Checking title and basic tags in index.html..."
+ grep -q "<title>My Demo Site</title>" index.html
+ grep -q "<h1>Welcome to My Demo Site</h1>" index.html
+ grep -q "script.js" index.html
+ echo "HTML looks good."
+ # 4. Prepare files for Pages deployment
+ - name: Configure Pages
+ uses: actions/configure-pages@v5
+ # 5. Upload the static site as an artifact for deployment
+ - name: Upload static site
+ uses: actions/upload-pages-artifact@v3
+ with:
+ # If your site is in a subfolder (e.g., "site/"),
+change this path
+ path: "."
+ deploy:
+ name: Deploy to GitHub Pages
+ needs: build
+ runs-on: ubuntu-latest
+ environment:
+ name: github-pages
+ url: ${{ steps.deployment.outputs.page_url }}
+ steps:
+ - name: Deploy
+ id: deployment
+ uses: actions/deploy-pages@v4
