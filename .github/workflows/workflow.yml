@@ -1,0 +1,51 @@
+name: CI and Deploy to InfinityFree
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    name: Build and Test PHP Site
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Check out the repository
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      # 2. Set up PHP (optional but recommended if you want to lint/test)
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+
+      # 3. Basic PHP lint check (adjust file list to match your project)
+      - name: PHP Lint
+        run: |
+          set -euo pipefail
+          php -l index.php
+          php -l process_form.php
+          echo "PHP syntax OK"
+
+  deploy:
+    name: Deploy to InfinityFree
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      # 1. Check out repository (again, in this job)
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      # 2. Deploy via FTP to InfinityFree
+      - name: FTP Deploy
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: ${{ secrets.FTP_PATH }}
+          protocol: ftp
