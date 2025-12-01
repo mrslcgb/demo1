@@ -53,17 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <title>Contact Us</title>
-    <style>
-        /* Simple CSS for readability */
-        body { font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; font-weight: bold; }
-        input[type="text"], input[type="email"], textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-        textarea { resize: vertical; height: 150px; }
-        .submit-btn { background-color: #4CAF50; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; }
-        .success { color: green; font-weight: bold; padding: 10px; border: 1px solid green; background-color: #e6ffe6; }
-        .error { color: red; font-weight: bold; padding: 10px; border: 1px solid red; background-color: #ffe6e6; }
-    </style>
+   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
