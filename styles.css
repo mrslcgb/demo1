@@ -23,13 +23,13 @@ button {
 
 .form-group {
     margin-bottom: 15px;
-    width: 500px;
+
 }
 label {
     display: block; margin-bottom: 5px; font-weight: bold;
 }
 input[type="text"], input[type="email"], textarea {
-    width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;
+    width: 60%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;
 }
 textarea {
     resize: vertical; height: 150px;
