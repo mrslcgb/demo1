@@ -56,43 +56,44 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
    <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+    <div class="container">
+        <h2>Get in Touch</h2>
 
-    <h2>Get in Touch</h2>
+        <?php
+            // Display success or error messages
+            if (!empty($success_message)) {
+                echo "<div class='success'>" . $success_message . "</div>";
+            }
+            if (!empty($error_message)) {
+                echo "<div class='error'>" . $error_message . "</div>";
+            }
+        ?>
 
-    <?php
-        // Display success or error messages
-        if (!empty($success_message)) {
-            echo "<div class='success'>" . $success_message . "</div>";
-        }
-        if (!empty($error_message)) {
-            echo "<div class='error'>" . $error_message . "</div>";
-        }
-    ?>
+        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 
-    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+            <div class="form-group">
+                <label for="name">Your Name:</label>
+                <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($name); ?>" required>
+            </div>
 
-        <div class="form-group">
-            <label for="name">Your Name:</label>
-            <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($name); ?>" required>
-        </div>
+            <div class="form-group">
+                <label for="email">Your Email:</label>
+                <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>" required>
+            </div>
 
-        <div class="form-group">
-            <label for="email">Your Email:</label>
-            <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>" required>
-        </div>
+            <div class="form-group">
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" required><?php echo htmlspecialchars($message); ?></textarea>
+            </div>
 
-        <div class="form-group">
-            <label for="message">Message:</label>
-            <textarea id="message" name="message" required><?php echo htmlspecialchars($message); ?></textarea>
-        </div>
+            <div class="form-group">
+                <button type="submit" class="submit-btn">Send Message</button>
+            </div>
 
-        <div class="form-group">
-            <button type="submit" class="submit-btn">Send Message</button>
-        </div>
+        </form>
 
-    </form>
-
-<a href="index.html">Go BACK</a>
+        <a href="index.html">Go BACK</a>
+    </div>
 
 </body>
 </html>

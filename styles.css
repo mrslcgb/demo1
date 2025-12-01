@@ -1,24 +1,35 @@
 body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background: #f5f5f5;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f5f5f5;
 }
 
 header, footer {
-  background: cadetblue;
-  color: #fff;
-  padding: 1rem;
-  text-align: center;
+    background: cadetblue;
+    color: #fff;
+    padding: 1rem;
+    text-align: center;
 }
 
 main {
-  padding: 2rem;
+    padding: 2rem;
 }
 
+/* --- NEW CONTAINER STYLE FOR CENTERING THE FORM --- */
+.container {
+    max-width: 600px; /* Set a maximum width for the form box */
+    margin: 40px auto; /* Center the container horizontally and add top/bottom margin */
+    padding: 30px;
+    background: #fff; /* White background for the box */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+/* ------------------------------------------------ */
+
 button {
-  padding: 0.5rem 1rem;
-  cursor: pointer;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
 }
 
 .form-group {
@@ -28,8 +39,14 @@ button {
 label {
     display: block; margin-bottom: 5px; font-weight: bold;
 }
+
+/* Updated width to 100% to fit within the new 600px container */
 input[type="text"], input[type="email"], textarea {
-    width: 60%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Ensures padding and border are included in the element's total width */
 }
 textarea {
     resize: vertical; height: 150px;
